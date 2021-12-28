@@ -1,0 +1,144 @@
+<app-navbar></app-navbar>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <!-- Thiet ke 1 form -> dang ky tai khoan user -->
+    <div class="container">
+      <div class="card">
+        <div class="card-header bg-success text-light">Thông tin sinh viên</div>
+        <div class="card-body">
+          <form id="MyForm">
+            <div class="form-group group-fullname">
+              <label for="fullname">Họ tên:</label>
+              <input
+                type="text"
+                name="name_fullname"
+                id="fullname"
+                class="form-control"
+                #name
+                formControlName="name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input
+                type="email"
+                name="name_email"
+                id="email"
+                class="form-control"
+                #email
+                formControlName="email"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="birthday">Ngày sinh:</label>
+              <input
+                type="date"
+                name="name_birthday"
+                id="birthday"
+                class="form-control"
+                #dob
+                formControlName="dob"
+              />
+            </div>
+            <div class="form-group">
+              <label for="subject">Môn học:</label><br />
+              <select formControlName="subject" #subject>
+                <option *ngFor="let subj of subjs" [value]="subj.name">
+                  {{ subj.name }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="subject">Giới tính:</label><br />
+              <select formControlName="gender" #gender>
+                <option [value]="'Nam'">Nam</option>
+                <option [value]="'Nữ'">Nữ</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="subject">Role:</label><br />
+              <select formControlName="job" #job>
+                <option [value]="'teacher'">Giảng viên</option>
+                <option [value]="'student'">Sinh viên</option>
+              </select>
+            </div>
+
+            <button
+              (click)="
+                this.add(
+                  name.value,
+                  email.value,
+                  dob.value,
+                  gender.value,
+                  job.value,
+                  subject.value
+                )
+              "
+              type="button"
+              class="btn btn-success"
+              id="btn_save"
+            >
+              Save
+            </button>
+            <!-- <button (click)="this.get()">get</button> -->
+          </form>
+        </div>
+      </div>
+      <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="First">
+          <table class="table table-bordered" style="margin-top: 20px">
+            <thead>
+              <tr class="bg-success">
+                <th>Họ Tên</th>
+                <th>Email</th>
+                <th>Ngày sinh</th>
+                <th>Giới tính</th>
+                <th>Môn học</th>
+              </tr>
+            </thead>
+
+            <tbody
+              id="student_list_id"
+              *ngFor="
+                let sv of Svs | paginate: { itemsPerPage: 5, currentPage: p }
+              "
+            >
+              <td>{{ sv.fullname }}</td>
+              <td>{{ sv.email }}</td>
+              <td>
+                {{ sv.dob }}
+              </td>
+              <td>
+                {{ sv.gender }}
+              </td>
+              <td style="display: flex; justify-content: space-between">
+                {{ sv.subject
+                }}<button (click)="this.deleteSV(sv.id)">Delete</button>
+              </td>
+            </tbody>
+          </table></mat-tab
+        >
+        <mat-tab label="Second">Content 2</mat-tab>
+        <mat-tab label="Third">Content 3</mat-tab>
+      </mat-tab-group>
+
+      <div style="text-align: center">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+  </body>
+</html>

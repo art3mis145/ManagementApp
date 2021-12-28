@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  URL: 'http://localhost:4200',
+  firebase: {
+    apiKey: 'AIzaSyBwJ-i-g3aaxwXEaL6pIbEQ-FnolXZM5-E',
+    authDomain: 'quanly-4011e.firebaseapp.com',
+    projectId: 'quanly-4011e',
+    storageBucket: 'quanly-4011e.appspot.com',
+    messagingSenderId: '428785912123',
+    appId: '1:428785912123:web:508cf9db86b87351ad0f1e',
+    measurementId: 'G-RN1W1N6F6T',
+  },
 };
 
 /*
